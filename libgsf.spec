@@ -10,7 +10,7 @@ Group:		Libraries
 Source0:	ftp://ftp.gnome.org/pub/gnome/sources/libgsf/1.5/libgsf-%{version}.tar.bz2
 Patch0:		%{name}-am.patch
 URL:		http://www.gnumeric.org/
-BuildRequires:	ORbit2-devel
+BuildRequires:	ORBit2-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0.0
