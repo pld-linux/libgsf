@@ -1,0 +1,24 @@
+diff -Nur libgsf-1.3.0/doc/Makefile.am libgsf-1.3.0.new/doc/Makefile.am
+--- libgsf-1.3.0/doc/Makefile.am	Fri Aug  2 00:44:24 2002
++++ libgsf-1.3.0.new/doc/Makefile.am	Tue Aug 27 23:50:30 2002
+@@ -144,17 +144,17 @@
+ 	cd $(srcdir) && rm -rf sgml html $(DOC_MODULE)-decl-list.txt $(DOC_MODULE)-decl.txt
+ 
+ install-data-local:
+-	$(mkinstalldirs) $(DOC_DIR)
++	$(mkinstalldirs) $(DESTDIR)$(DOC_DIR)
+ 	(installfiles=`echo $(srcdir)/html/*`; \
+ 	if test "$$installfiles" = '$(srcdir)/html/*'; \
+ 	then echo '-- Nothing to install' ; \
+ 	else \
+ 	  for i in $$installfiles; do \
+ 	    echo '-- Installing '$$i ; \
+-	    $(INSTALL_DATA) $$i $(DOC_DIR); \
++	    $(INSTALL_DATA) $$i $(DESTDIR)$(DOC_DIR); \
+ 	  done; \
+ 	  echo '-- Installing $(srcdir)/html/index.sgml' ; \
+-	  $(INSTALL_DATA) $(srcdir)/html/index.sgml $(DOC_DIR); \
++	  $(INSTALL_DATA) $(srcdir)/html/index.sgml $(DESTDIR)$(DOC_DIR); \
+ 	fi)
+ 
+ #
