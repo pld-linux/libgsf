@@ -2,13 +2,13 @@ Summary:	GNOME Structured File library
 Name:		libgsf
 Version:	1.3.0
 Release:	1
-Group:		Libraries
 License:	GPL
+Group:		Libraries
 Source0:	ftp://ftp.gnome.org/pub/GNOME/unstable/sources/libgsf/libgsf-%{version}.tar.bz2
 Patch0:		%{name}-am.patch
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 URL:		http://www.gnumeric.org
 BuildRequires:	glib2-devel >= 2.0.0
+Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 A library for reading and writing structured files (eg MS OLE and Zip)
@@ -52,8 +52,8 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -r $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
