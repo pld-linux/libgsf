@@ -135,7 +135,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgsf-?.??
+%{_libdir}/libgsf-?.la
+%attr(755,root,root) %{_libdir}/libgsf-?.so
 %dir %{_includedir}/libgsf-1
 %{_includedir}/libgsf-1/gsf
 %{_pkgconfigdir}/libgsf-?.pc
@@ -151,7 +152,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gnome-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgsf-gnome-?.??
+%{_libdir}/libgsf-gnome-?.la
+%attr(755,root,root) %{_libdir}/libgsf-gnome-?.so
 %{_includedir}/libgsf-1/gsf-gnome
 %{_pkgconfigdir}/libgsf-gnome-?.pc
 
