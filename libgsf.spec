@@ -1,5 +1,3 @@
-# TODO:
-# - split libgsf and libgsf-gnome
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
@@ -13,7 +11,6 @@ URL:		http://www.gnumeric.org/
 BuildRequires:	ORBit2-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	gnome-vfs2-devel
 BuildRequires:	libbonobo-devel >= 2.0.0
@@ -37,6 +34,8 @@ Summary:	Support files necessary to compile applications with libgsf
 Summary(pl):	Pliki do kompilowania aplikacji u¿ywaj±cych libgsf
 Group:		Development/Libraries
 Requires:	libgsf = %{version}
+Requires:	glib2-devel
+Requires:	libxml2-devel
 
 %description devel
 Headers, and support files necessary to compile applications using
@@ -57,6 +56,45 @@ Package contains static libraries.
 
 %description static -l pl
 Statyczne biblioteki libgsf.
+
+%package gnome
+Summary:	GNOME specific extensions to libgsf
+Summary(pl):	Rozszerzenia GNOME do biblioteki libgsf
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description gnome
+GNOME specific extensions to libgsf.
+
+%description gnome -l pl
+Rozszerzenia GNOME do biblioteki libgsf.
+
+%package gnome-devel
+Summary:	libgsf-gnome header files
+Summary(pl):	Pliki nag³ówkowe libgsf-gnome
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}
+Requires:	%{name}-gnome = %{version}
+Requires:	gnome-vfs2-devel
+Requires:	libbonobo-devel
+
+%description gnome-devel
+libgsf-gnome header files.
+
+%description gnome-devel -l pl
+Pliki nag³ówkowe libgsf-gnome.
+
+%package gnome-static
+Summary:	Static libgsf-gnome library
+Summary(pl):	Statyczna biblioteka libgsf-gnome
+Group:		Development/Libraries
+Requires:	%{name}-gnome-devel = %{version}
+
+%description gnome-static
+Static libgsf-gnome library.
+
+%description gnome-static -l pl
+Statyczna biblioteka libgsf-gnome.
 
 %prep
 %setup -q
@@ -86,18 +124,36 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
+%post   gnome -p /sbin/ldconfig
+%postun gnome -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS README NEWS
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/libgsf-?.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.??
-%{_includedir}/libgsf-1
-%{_pkgconfigdir}/*.pc
+%attr(755,root,root) %{_libdir}/libgsf-?.??
+%dir %{_includedir}/libgsf-1
+%{_includedir}/libgsf-1/gsf
+%{_pkgconfigdir}/libgsf-?.pc
 %{_gtkdocdir}/*
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/*.a
+%{_libdir}/libgsf-?.a
+
+%files gnome
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgsf-gnome-?.so.*.*
+
+%files gnome-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgsf-gnome-?.??
+%{_includedir}/libgsf-1/gsf-gnome
+%{_pkgconfigdir}/libgsf-gnome-?.pc
+
+%files gnome-static
+%defattr(644,root,root,755)
+%{_libdir}/libgsf-gnome-?.a
