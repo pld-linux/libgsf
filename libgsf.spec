@@ -15,6 +15,7 @@ URL:		http://www.gnumeric.org/
 %{!?_without_gnome:BuildRequires:	ORBit2-devel >= 2.8.1}
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	bzip2-devel
 BuildRequires:	glib2-devel >= 2.2.3
 %{!?_without_gnome:BuildRequires:	gnome-vfs2-devel >= 2.4.0}
 BuildRequires:	gtk-doc >= 0.9
@@ -37,6 +38,7 @@ Summary:	Support files necessary to compile applications with libgsf
 Summary(pl):	Pliki do kompilowania aplikacji u¿ywaj±cych libgsf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
+Requires:	bzip2-devel
 Requires:	glib2-devel
 Requires:	gtk-doc-common
 Requires:	libxml2-devel
