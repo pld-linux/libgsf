@@ -5,20 +5,20 @@
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.8.2
-Release:	2
+Version:	1.9.0
+Release:	1
 License:	GPL v2
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/gnome/sources/%{name}/1.8/%{name}-%{version}.tar.bz2
-# Source0-md5:	3a575469f9a2880d8ca78a70ddb93e78
+Source0:	http://ftp.gnome.org/pub/gnome/sources/%{name}/1.9/%{name}-%{version}.tar.bz2
+# Source0-md5:	a6e784925c1aee055af60d635aa6733a
 URL:		http://www.gnumeric.org/
 %{?with_gnome:BuildRequires:	ORBit2-devel >= 2.8.1}
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
 BuildRequires:	glib2-devel >= 2.2.3
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.4.0}
-BuildRequires:	gtk-doc >= 0.9
+BuildRequires:	gtk-doc >= 1.0
 %{?with_gnome:BuildRequires:	libbonobo-devel >= 2.4.0}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.5.11
@@ -37,11 +37,11 @@ Zip).
 Summary:	Support files necessary to compile applications with libgsf
 Summary(pl):	Pliki do kompilowania aplikacji u¿ywaj±cych libgsf
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
-Requires:	glib2-devel
-Requires:	gtk-doc-common
-Requires:	libxml2-devel
+Requires:	glib2-devel >= 2.2.3
+Requires:	gtk-doc-common >= 1.0
+Requires:	libxml2-devel >= 2.5.11
 
 %description devel
 Headers, and support files necessary to compile applications using
@@ -55,7 +55,7 @@ u¿ywaj±cych libgsf.
 Summary:	libgsf static libraries
 Summary(pl):	Statyczne biblioteki libgsf
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Package contains static libraries.
@@ -67,7 +67,7 @@ Statyczne biblioteki libgsf.
 Summary:	GNOME specific extensions to libgsf
 Summary(pl):	Rozszerzenia GNOME do biblioteki libgsf
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description gnome
 GNOME specific extensions to libgsf.
@@ -79,10 +79,10 @@ Rozszerzenia GNOME do biblioteki libgsf.
 Summary:	libgsf-gnome header files
 Summary(pl):	Pliki nag³ówkowe libgsf-gnome
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
-Requires:	%{name}-gnome = %{version}
-Requires:	gnome-vfs2-devel
-Requires:	libbonobo-devel
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-gnome = %{version}-%{release}
+Requires:	gnome-vfs2-devel >= 2.4.0
+Requires:	libbonobo-devel >= 2.4.0
 
 %description gnome-devel
 libgsf-gnome header files.
@@ -94,7 +94,7 @@ Pliki nag³ówkowe libgsf-gnome.
 Summary:	Static libgsf-gnome library
 Summary(pl):	Statyczna biblioteka libgsf-gnome
 Group:		Development/Libraries
-Requires:	%{name}-gnome-devel = %{version}
+Requires:	%{name}-gnome-devel = %{version}-%{release}
 
 %description gnome-static
 Static libgsf-gnome library.
