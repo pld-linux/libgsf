@@ -23,7 +23,7 @@ BuildRequires:	gtk-doc >= 0.9
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.5.11
 BuildRequires:	pkgconfig
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 A library for reading and writing structured files (e.g. MS OLE and
