@@ -112,7 +112,7 @@ rm -f acinclude.m4
 %{__autoconf}
 %{__automake}
 %configure \
-	--disable-gtk-doc \
+	--enable-gtk-doc \
 	--with-html-dir=%{_gtkdocdir}/%{name} \
 	%{!?with_gnome:--without-gnome}
 
