@@ -1,19 +1,22 @@
+# TODO:
+# - split libgsf and libgsf-gnome
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.3.0
-Release:	2
-License:	GPL
+Version:	1.5.0
+Release:	1
+License:	GPL v2
 Group:		Libraries
-Source0:	ftp://ftp.gnome.org/pub/GNOME/unstable/sources/libgsf/libgsf-%{version}.tar.bz2
+Source0:	ftp://ftp.gnome.org/pub/gnome/sources/libgsf/1.5/libgsf-%{version}.tar.bz2
 Patch0:		%{name}-am.patch
 URL:		http://www.gnumeric.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libtool
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_gtkdocdir	%{_defaultdocdir}/gtk-doc/html
 
 %description
 A library for reading and writing structured files (e.g. MS OLE and
@@ -56,17 +59,19 @@ Statyczne biblioteki libgsf.
 %build
 rm -f missing acinclude.m4
 %{__libtoolize}
-%{__gettextize}
-%{__aclocal} -I m4
+%{__aclocal}
 %{__autoconf}
 %{__automake}
-%configure
+%configure \
+	--enable-gtk-doc 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
+	DOC_DIR=%{_gtkdocdir}/\$\(DOC_MODULE\) \
+	pkgconfigdir=%{_pkgconfigdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
@@ -85,6 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.??
 %{_includedir}/libgsf-1
 %{_pkgconfigdir}/*.pc
+%{_gtkdocdir}/*
 
 %files static
 %defattr(644,root,root,755)
