@@ -10,10 +10,16 @@ Group:		Libraries
 Source0:	ftp://ftp.gnome.org/pub/gnome/sources/libgsf/1.5/libgsf-%{version}.tar.bz2
 Patch0:		%{name}-am.patch
 URL:		http://www.gnumeric.org/
+BuildRequires:	ORbit2-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0.0
+BuildRequires:	glib2-devel >= 2.0.0
+BuildRequires:	gnome-vfs2-devel
+BuildRequires:	libbonobo-devel >= 2.0.0
 BuildRequires:	libtool
+BuildRequires:	libxml2-devel
+BuildRequires:	pkgconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gtkdocdir	%{_defaultdocdir}/gtk-doc/html
