@@ -10,6 +10,7 @@ Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.8/libgsf-%{version}.tar.bz2
+# Source0-md5:	104723ba800e47798819b4b94b269f74
 URL:		http://www.gnumeric.org/
 %{!?_without_gnome:BuildRequires:	ORBit2-devel}
 BuildRequires:	autoconf
