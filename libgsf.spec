@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _without_gnome	- without gnome extensions packages
+# _without_gnome	- without GNOME extensions packages
 #
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
