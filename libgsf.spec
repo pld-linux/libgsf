@@ -1,25 +1,25 @@
 #
 # Conditional build:
-# _without_gnome	- without GNOME extensions packages
+%bcond_without	gnome	# without GNOME extensions packages
 #
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
 Version:	1.8.2
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/%{name}/1.8/%{name}-%{version}.tar.bz2
 # Source0-md5:	3a575469f9a2880d8ca78a70ddb93e78
 URL:		http://www.gnumeric.org/
-%{!?_without_gnome:BuildRequires:	ORBit2-devel >= 2.8.1}
+%{?with_gnome:BuildRequires:	ORBit2-devel >= 2.8.1}
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
 BuildRequires:	glib2-devel >= 2.2.3
-%{!?_without_gnome:BuildRequires:	gnome-vfs2-devel >= 2.4.0}
+%{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.4.0}
 BuildRequires:	gtk-doc >= 0.9
-%{!?_without_gnome:BuildRequires:	libbonobo-devel >= 2.4.0}
+%{?with_gnome:BuildRequires:	libbonobo-devel >= 2.4.0}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.5.11
 BuildRequires:	pkgconfig
@@ -106,7 +106,7 @@ Statyczna biblioteka libgsf-gnome.
 %setup -q
 
 %build
-rm -f missing acinclude.m4
+rm -f acinclude.m4
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -114,7 +114,7 @@ rm -f missing acinclude.m4
 %configure \
 	--enable-gtk-doc \
 	--with-html-dir=%{_gtkdocdir}/%{name} \
-	%{?_without_gnome:--without-gnome}
+	%{!?with_gnome:--without-gnome}
 
 %{__make}
 
@@ -151,7 +151,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libgsf-?.a
 
-%if 0%{!?_without_gnome:1}
+%if %{with gnome}
 %files gnome
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgsf-gnome-?.so.*.*
