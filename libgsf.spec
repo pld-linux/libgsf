@@ -5,12 +5,12 @@
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.11.0
+Version:	1.11.1
 Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/%{name}/1.11/%{name}-%{version}.tar.bz2
-# Source0-md5:	75a8a807d02e7940714dbc5da477ed96
+# Source0-md5:	b6d867f46e20dca5c6bf2cf3bfc38cfc
 URL:		http://www.gnumeric.org/
 %{?with_gnome:BuildRequires:	ORBit2-devel >= 2.8.1}
 BuildRequires:	autoconf >= 2.52
