@@ -57,7 +57,7 @@ Statyczne biblioteki libgsf.
 rm -f missing acinclude.m4
 %{__libtoolize}
 %{__gettextize}
-aclocal -I m4
+%{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
 %configure
