@@ -5,11 +5,11 @@
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.7.2
+Version:	1.8.0
 Release:	1
 License:	GPL v2
 Group:		Libraries
-Source0:	ftp://ftp.gnome.org/pub/gnome/sources/libgsf/1.7/libgsf-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.8/libgsf-%{version}.tar.bz2
 URL:		http://www.gnumeric.org/
 %{!?_without_gnome:BuildRequires:	ORBit2-devel}
 BuildRequires:	autoconf
@@ -22,8 +22,6 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel
 BuildRequires:	pkgconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_gtkdocdir	%{_defaultdocdir}/gtk-doc/html
 
 %description
 A library for reading and writing structured files (e.g. MS OLE and
@@ -121,7 +119,6 @@ rm -f missing acinclude.m4
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	pkgconfigdir=%{_pkgconfigdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
