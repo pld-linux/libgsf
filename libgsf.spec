@@ -35,6 +35,7 @@ Summary(pl):	Pliki do kompilowania aplikacji u¿ywaj±cych libgsf
 Group:		Development/Libraries
 Requires:	libgsf = %{version}
 Requires:	glib2-devel
+Requires:	gtk-doc-common
 Requires:	libxml2-devel
 
 %description devel
