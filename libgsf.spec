@@ -1,3 +1,7 @@
+#
+# Conditional build:
+# _without_gnome	- without gnome extensions packages
+#
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
@@ -7,12 +11,13 @@ License:	GPL v2
 Group:		Libraries
 Source0:	ftp://ftp.gnome.org/pub/gnome/sources/libgsf/1.7/libgsf-%{version}.tar.bz2
 URL:		http://www.gnumeric.org/
-BuildRequires:	ORBit2-devel
+%{!?_without_gnome:BuildRequires:	ORBit2-devel}
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0.0
-BuildRequires:	gnome-vfs2-devel
-BuildRequires:	libbonobo-devel >= 2.0.0
+%{!?_without_gnome:BuildRequires:	gnome-vfs2-devel}
+BuildRequires:	gtk-doc >= 0.9
+%{!?_without_gnome:BuildRequires:	libbonobo-devel >= 2.0.0}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
 BuildRequires:	pkgconfig
@@ -32,7 +37,7 @@ Zip).
 Summary:	Support files necessary to compile applications with libgsf
 Summary(pl):	Pliki do kompilowania aplikacji u¿ywaj±cych libgsf
 Group:		Development/Libraries
-Requires:	libgsf = %{version}
+Requires:	%{name} = %{version}
 Requires:	glib2-devel
 Requires:	gtk-doc-common
 Requires:	libxml2-devel
@@ -49,7 +54,7 @@ u¿ywaj±cych libgsf.
 Summary:	libgsf static libraries
 Summary(pl):	Statyczne biblioteki libgsf
 Group:		Development/Libraries
-Requires:	libgsf-devel = %{version}
+Requires:	%{name}-devel = %{version}
 
 %description static
 Package contains static libraries.
@@ -107,7 +112,9 @@ rm -f missing acinclude.m4
 %{__automake}
 %configure \
 	--enable-gtk-doc \
-	--with-html-dir=%{_gtkdocdir}/%{name}
+	--with-html-dir=%{_gtkdocdir}/%{name} \
+	%{?_without_gnome:--without-gnome}
+
 %{__make}
 
 %install
@@ -144,6 +151,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libgsf-?.a
 
+%if 0%{!?_without_gnome:1}
 %files gnome
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgsf-gnome-?.so.*.*
@@ -158,3 +166,4 @@ rm -rf $RPM_BUILD_ROOT
 %files gnome-static
 %defattr(644,root,root,755)
 %{_libdir}/libgsf-gnome-?.a
+%endif
