@@ -1,12 +1,11 @@
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.5.0
-Release:	2
+Version:	1.7.2
+Release:	1
 License:	GPL v2
 Group:		Libraries
-Source0:	ftp://ftp.gnome.org/pub/gnome/sources/libgsf/1.5/libgsf-%{version}.tar.bz2
-Patch0:		%{name}-am.patch
+Source0:	ftp://ftp.gnome.org/pub/gnome/sources/libgsf/1.7/libgsf-%{version}.tar.bz2
 URL:		http://www.gnumeric.org/
 BuildRequires:	ORBit2-devel
 BuildRequires:	autoconf
@@ -99,7 +98,6 @@ Statyczna biblioteka libgsf-gnome.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 rm -f missing acinclude.m4
@@ -108,14 +106,14 @@ rm -f missing acinclude.m4
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-gtk-doc 
+	--enable-gtk-doc \
+	--with-html-dir=%{_gtkdocdir}/%{name}
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DOC_DIR=%{_gtkdocdir}/\$\(DOC_MODULE\) \
 	pkgconfigdir=%{_pkgconfigdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -140,7 +138,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/libgsf-1
 %{_includedir}/libgsf-1/gsf
 %{_pkgconfigdir}/libgsf-?.pc
-%{_gtkdocdir}/*
+%{_gtkdocdir}/%{name}
 
 %files static
 %defattr(644,root,root,755)
