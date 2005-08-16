@@ -5,12 +5,12 @@
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.12.1
+Version:	1.12.2
 Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.12/%{name}-%{version}.tar.bz2
-# Source0-md5:	76473db3245f2f384475f2e40c4ca432
+# Source0-md5:	fe5007f3a21bf7ab707af6c5c0d24489
 URL:		http://www.gnumeric.org/
 %{?with_gnome:BuildRequires:	ORBit2-devel >= 2.8.1}
 BuildRequires:	autoconf >= 2.54
@@ -102,6 +102,19 @@ Static libgsf-gnome library.
 %description gnome-static -l pl
 Statyczna biblioteka libgsf-gnome.
 
+%package -n gsf-office-thumbnailer
+Summary:	Simple document thumbnailer
+Summary(pl):	Prosty generator miniatur dokumentów
+Group:		X11/Applications
+Requires(post,preun):   GConf2
+Requires:	%{name}-gnome = %{version}-%{release}
+
+%description -n gsf-office-thumbnailer
+Simple document thumbnailer.
+
+%description -n gsf-office-thumbnailer -l pl
+Prosty program tworz±cy miniaturki dokumentów.
+
 %prep
 %setup -q
 
@@ -133,6 +146,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %post   gnome -p /sbin/ldconfig
 %postun gnome -p /sbin/ldconfig
+
+%post -n gsf-office-thumbnailer
+%gconf_schema_install gsf-office-thumbnailer.schemas
+
+%preun -n gsf-office-thumbnailer
+%gconf_schema_uninstall gsf-office-thumbnailer.schemas
 
 %files
 %defattr(644,root,root,755)
@@ -168,3 +187,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libgsf-gnome-?.a
 %endif
+
+%files -n gsf-office-thumbnailer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/gsf-office-thumbnailer
+%{_sysconfdir}/gconf/schemas/gsf-office-thumbnailer.schemas
