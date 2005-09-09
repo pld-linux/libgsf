@@ -192,4 +192,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gsf-office-thumbnailer
 %{_sysconfdir}/gconf/schemas/gsf-office-thumbnailer.schemas
-%{_mandir}/man1/gsf-office-thumbnailer.1.gz
+%{_mandir}/man1/gsf-office-thumbnailer.1*
