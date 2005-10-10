@@ -5,18 +5,18 @@
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.11.1
-Release:	2
+Version:	1.13.2
+Release:	1
 License:	GPL v2
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/gnome/sources/%{name}/1.11/%{name}-%{version}.tar.bz2
-# Source0-md5:	b6d867f46e20dca5c6bf2cf3bfc38cfc
+Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.13/%{name}-%{version}.tar.bz2
+# Source0-md5:	0894afd88f9e43eada27e52cb22cd0f1
 URL:		http://www.gnumeric.org/
 %{?with_gnome:BuildRequires:	ORBit2-devel >= 2.8.1}
-BuildRequires:	autoconf >= 2.52
+BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
-BuildRequires:	glib2-devel >= 2.2.3
+BuildRequires:	glib2-devel >= 1:2.6.0
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.4.0}
 BuildRequires:	gtk-doc >= 1.0
 %{?with_gnome:BuildRequires:	libbonobo-devel >= 2.4.0}
@@ -39,9 +39,9 @@ Summary(pl):	Pliki do kompilowania aplikacji u¿ywaj±cych libgsf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
-Requires:	glib2-devel >= 2.2.3
+Requires:	glib2-devel >= 1:2.6.0
 Requires:	gtk-doc-common >= 1.0
-Requires:	libxml2-devel >= 2.5.11
+Requires:	libxml2-devel >= 2.4.16
 
 %description devel
 Headers, and support files necessary to compile applications using
@@ -102,6 +102,19 @@ Static libgsf-gnome library.
 %description gnome-static -l pl
 Statyczna biblioteka libgsf-gnome.
 
+%package -n gsf-office-thumbnailer
+Summary:	Simple document thumbnailer
+Summary(pl):	Prosty generator miniatur dokumentów
+Group:		X11/Applications
+Requires(post,preun):   GConf2
+Requires:	%{name}-gnome = %{version}-%{release}
+
+%description -n gsf-office-thumbnailer
+Simple document thumbnailer.
+
+%description -n gsf-office-thumbnailer -l pl
+Prosty program tworz±cy miniaturki dokumentów.
+
 %prep
 %setup -q
 
@@ -115,7 +128,6 @@ rm -f acinclude.m4
 	--enable-gtk-doc \
 	--with-html-dir=%{_gtkdocdir}/%{name} \
 	%{!?with_gnome:--without-gnome}
-
 %{__make}
 
 %install
@@ -134,6 +146,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %post   gnome -p /sbin/ldconfig
 %postun gnome -p /sbin/ldconfig
+
+%post -n gsf-office-thumbnailer
+%gconf_schema_install gsf-office-thumbnailer.schemas
+
+%preun -n gsf-office-thumbnailer
+%gconf_schema_uninstall gsf-office-thumbnailer.schemas
 
 %files
 %defattr(644,root,root,755)
@@ -169,3 +187,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libgsf-gnome-?.a
 %endif
+
+%files -n gsf-office-thumbnailer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/gsf-office-thumbnailer
+%{_sysconfdir}/gconf/schemas/gsf-office-thumbnailer.schemas
+%{_mandir}/man1/gsf-office-thumbnailer.1*
