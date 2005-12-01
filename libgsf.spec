@@ -1,6 +1,7 @@
 #
 # Conditional build:
-%bcond_without	gnome	# without GNOME extensions packages
+%bcond_without apidocs		# disable gtk-doc
+%bcond_without gnome		# without GNOME extensions packages
 #
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
@@ -11,14 +12,17 @@ License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.13/%{name}-%{version}.tar.bz2
 # Source0-md5:	b35e95f6bd7b8add9981b6cf6336674a
+Patch0:		%{name}-no_GConf2_macros.patch
 URL:		http://www.gnumeric.org/
+%{?with_gnome:BuildRequires:	GConf2-devel}
 %{?with_gnome:BuildRequires:	ORBit2-devel >= 2.8.1}
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
 BuildRequires:	glib2-devel >= 1:2.6.0
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.4.0}
-BuildRequires:	gtk-doc >= 1.0
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.0}
+BuildRequires:	gtk-doc-automake
 %{?with_gnome:BuildRequires:	libbonobo-devel >= 2.4.0}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.4.16
@@ -117,6 +121,7 @@ Prosty program tworz±cy miniaturki dokumentów.
 
 %prep
 %setup -q
+%{!?with_gnome:%patch0 -p1}
 
 %build
 rm -f acinclude.m4
@@ -125,7 +130,7 @@ rm -f acinclude.m4
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-gtk-doc \
+	%?with_apidocs:--enable-gtk-doc} \
 	--with-html-dir=%{_gtkdocdir}/%{name} \
 	%{!?with_gnome:--without-gnome}
 %{__make}
@@ -186,10 +191,10 @@ rm -rf $RPM_BUILD_ROOT
 %files gnome-static
 %defattr(644,root,root,755)
 %{_libdir}/libgsf-gnome-?.a
-%endif
 
 %files -n gsf-office-thumbnailer
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gsf-office-thumbnailer
 %{_sysconfdir}/gconf/schemas/gsf-office-thumbnailer.schemas
 %{_mandir}/man1/gsf-office-thumbnailer.1*
+%endif
