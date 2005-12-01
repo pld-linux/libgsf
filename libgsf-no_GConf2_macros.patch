@@ -1,0 +1,20 @@
+--- libgsf-1.13.3/configure.in.orig	2005-10-11 16:51:56.000000000 +0200
++++ libgsf-1.13.3/configure.in	2005-12-01 17:30:25.000000000 +0100
+@@ -357,16 +357,7 @@
+ dnl The following conditional is set in AM_GCONF_SOURCE_2.
+ dnl Because we may skip its execution, we have to set a default here.
+ AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL], [false])
+-
+-dnl Don't publish the GCONFTOOL variable, AM_GCONF_SOURCE_2 has ``gconftool-2'' hardwired.
+-GCONFTOOL=
+-AC_CHECK_PROG([GCONFTOOL], [gconftool-2], [gconftool-2], [no])
+-if test "x$GCONFTOOL" = "xno"; then
+-    AC_MSG_WARN([thumbnailer will not be built, unable to find gconftool-2])
+-else
+-    AM_GCONF_SOURCE_2
+-fi
+-AM_CONDITIONAL(WITH_GCONF, test "x$GCONFTOOL" != "xno")
++AM_CONDITIONAL(WITH_GCONF, false)
+ 
+ LDFLAGS="-no-undefined $LDFLAGS"
+ 
