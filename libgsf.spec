@@ -1,7 +1,7 @@
 #
 # Conditional build:
-%bcond_without apidocs		# disable gtk-doc
-%bcond_without gnome		# without GNOME extensions packages
+%bcond_without	apidocs		# disable gtk-doc
+%bcond_without	gnome		# without GNOME extensions packages
 #
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
@@ -14,19 +14,22 @@ Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.13/%{name}-%{version}.t
 # Source0-md5:	b35e95f6bd7b8add9981b6cf6336674a
 Patch0:		%{name}-no_GConf2_macros.patch
 URL:		http://www.gnumeric.org/
-%{?with_gnome:BuildRequires:	GConf2-devel}
-%{?with_gnome:BuildRequires:	ORBit2-devel >= 2.8.1}
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
 BuildRequires:	glib2-devel >= 1:2.6.0
-%{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.4.0}
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.0}
 BuildRequires:	gtk-doc-automake
-%{?with_gnome:BuildRequires:	libbonobo-devel >= 2.4.0}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.4.16
 BuildRequires:	pkgconfig
+# GNOME BR
+%if %{with gnome}
+BuildRequires:	GConf2-devel
+BuildRequires:	ORBit2-devel >= 2.8.1
+BuildRequires:	gnome-vfs2-devel >= 2.4.0
+BuildRequires:	libbonobo-devel >= 2.4.0
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
