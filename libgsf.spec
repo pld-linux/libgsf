@@ -7,7 +7,7 @@ Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
 Version:	1.14.1
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
@@ -17,18 +17,17 @@ URL:		http://www.gnumeric.org/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
-BuildRequires:	glib2-devel >= 1:2.6.0
+BuildRequires:	glib2-devel >= 1:2.11.2
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.0}
 BuildRequires:	gtk-doc-automake
 BuildRequires:	libtool
-BuildRequires:	libxml2-devel >= 2.4.16
+BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	pkgconfig
 # GNOME BR
 %if %{with gnome}
 BuildRequires:	GConf2-devel
-BuildRequires:	ORBit2-devel >= 2.8.1
-BuildRequires:	gnome-vfs2-devel >= 2.4.0
-BuildRequires:	libbonobo-devel >= 2.4.0
+BuildRequires:	ORBit2-devel >= 1:2.8.1
+BuildRequires:	gnome-vfs2-devel >= 2.15.1
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -46,9 +45,9 @@ Summary(pl):	Pliki do kompilowania aplikacji u¿ywaj±cych libgsf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
-Requires:	glib2-devel >= 1:2.6.0
+Requires:	glib2-devel >= 1:2.11.2
 Requires:	gtk-doc-common >= 1.0
-Requires:	libxml2-devel >= 2.4.16
+Requires:	libxml2-devel >= 1:2.6.26
 
 %description devel
 Headers, and support files necessary to compile applications using
@@ -88,8 +87,7 @@ Summary(pl):	Pliki nag³ówkowe libgsf-gnome
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-gnome = %{version}-%{release}
-Requires:	gnome-vfs2-devel >= 2.4.0
-Requires:	libbonobo-devel >= 2.4.0
+Requires:	gnome-vfs2-devel >= 2.15.1
 
 %description gnome-devel
 libgsf-gnome header files.
