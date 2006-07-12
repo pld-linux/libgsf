@@ -7,27 +7,27 @@ Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
 Version:	1.14.1
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
 # Source0-md5:	00de00b99382d0b7e034e0fffd8951d4
 Patch0:		%{name}-no_GConf2_macros.patch
 URL:		http://www.gnumeric.org/
+BuildRequires:	GConf2-devel >= 2.14.0
+BuildRequires:	ORBit2-devel >= 1:2.14.0
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
-BuildRequires:	glib2-devel >= 1:2.11.2
-%{?with_apidocs:BuildRequires:	gtk-doc >= 1.0}
+BuildRequires:	glib2-devel >= 1:2.12.0
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
 BuildRequires:	gtk-doc-automake
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	pkgconfig
 # GNOME BR
 %if %{with gnome}
-BuildRequires:	GConf2-devel
-BuildRequires:	ORBit2-devel >= 1:2.8.1
-BuildRequires:	gnome-vfs2-devel >= 2.15.1
+BuildRequires:	gnome-vfs2-devel >= 2.15.3
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -45,8 +45,8 @@ Summary(pl):	Pliki do kompilowania aplikacji u¿ywaj±cych libgsf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
-Requires:	glib2-devel >= 1:2.11.2
-Requires:	gtk-doc-common >= 1.0
+Requires:	glib2-devel >= 1:2.12.0
+Requires:	gtk-doc-common >= 1.6
 Requires:	libxml2-devel >= 1:2.6.26
 
 %description devel
@@ -87,7 +87,7 @@ Summary(pl):	Pliki nag³ówkowe libgsf-gnome
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-gnome = %{version}-%{release}
-Requires:	gnome-vfs2-devel >= 2.15.1
+Requires:	gnome-vfs2-devel >= 2.15.3
 
 %description gnome-devel
 libgsf-gnome header files.
@@ -130,6 +130,7 @@ rm -f acinclude.m4
 %{__aclocal}
 %{__autoconf}
 %{__automake}
+LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	%{?with_apidocs:--enable-gtk-doc} \
 	--with-html-dir=%{_gtkdocdir}/%{name} \
