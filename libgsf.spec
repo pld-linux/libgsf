@@ -6,28 +6,29 @@
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.1
-Release:	3
+Version:	1.14.2
+Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
-# Source0-md5:	00de00b99382d0b7e034e0fffd8951d4
+# Source0-md5:	aea16a8408b65f95c308b0db3e3d3d47
 Patch0:		%{name}-no_GConf2_macros.patch
 URL:		http://www.gnumeric.org/
 BuildRequires:	GConf2-devel >= 2.14.0
-BuildRequires:	ORBit2-devel >= 1:2.14.0
+BuildRequires:	ORBit2-devel >= 1:2.14.3
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
-BuildRequires:	glib2-devel >= 1:2.12.0
-%{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
+BuildRequires:	glib2-devel >= 1:2.12.4
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.7}
 BuildRequires:	gtk-doc-automake
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	pkgconfig
+BuildRequires:	python-pygtk-devel >= 2:2.10.2
 # GNOME BR
 %if %{with gnome}
-BuildRequires:	gnome-vfs2-devel >= 2.15.3
+BuildRequires:	gnome-vfs2-devel >= 2.16.1
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -45,8 +46,8 @@ Summary(pl):	Pliki do kompilowania aplikacji u¿ywaj±cych libgsf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
-Requires:	glib2-devel >= 1:2.12.0
-Requires:	gtk-doc-common >= 1.6
+Requires:	glib2-devel >= 1:2.12.4
+Requires:	gtk-doc-common >= 1.7
 Requires:	libxml2-devel >= 1:2.6.26
 
 %description devel
@@ -87,7 +88,7 @@ Summary(pl):	Pliki nag³ówkowe libgsf-gnome
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-gnome = %{version}-%{release}
-Requires:	gnome-vfs2-devel >= 2.15.3
+Requires:	gnome-vfs2-devel >= 2.16.1
 
 %description gnome-devel
 libgsf-gnome header files.
@@ -120,6 +121,33 @@ Simple document thumbnailer.
 %description -n gsf-office-thumbnailer -l pl
 Prosty program tworz±cy miniaturki dokumentów.
 
+%package -n python-gsf
+Summary:	Python gsf module
+Summary(pl):	Modu³ gsf dla pythona
+Group:		Libraries
+%pyrequires_eq	python-libs
+Requires:	%{name} = %{version}-%{release}
+Requires:	python-pygtk-gtk >= 2:2.10.2
+
+%description -n python-gsf
+Python gsf library.
+
+%description -n python-gsf -l pl
+Biblioteka gsf dla pythona.
+
+%package -n python-gsf-gnome
+Summary:	Python gsf-gnome module
+Summary(pl):	Modu³ gsf-gnome dla pythona
+Group:		Libraries
+%pyrequires_eq	python-libs
+Requires:	python-gsf = %{version}-%{release}
+
+%description -n python-gsf-gnome
+Python gsf-gnome library.
+
+%description -n python-gsf-gnome -l pl
+Biblioteka gsf-gnome dla pythona.
+
 %prep
 %setup -q
 %{!?with_gnome:%patch0 -p1}
@@ -127,10 +155,9 @@ Prosty program tworz±cy miniaturki dokumentów.
 %build
 rm -f acinclude.m4
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
-LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	%{?with_apidocs:--enable-gtk-doc} \
 	--with-html-dir=%{_gtkdocdir}/%{name} \
@@ -144,6 +171,10 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 rm -rf $RPM_BUILD_ROOT%{_includedir}/%{name}-1/gsf-win32
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/gsf/*.{la,a}
+rm -f $RPM_BUILD_ROOT%{py_sitescriptdir}/gsf/*.py
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -160,9 +191,11 @@ rm -rf $RPM_BUILD_ROOT
 %preun -n gsf-office-thumbnailer
 %gconf_schema_uninstall gsf-office-thumbnailer.schemas
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS README NEWS
+%attr(755,root,root) %{_bindir}/gsf
+%attr(755,root,root) %{_bindir}/gsf-vba-dump
 %attr(755,root,root) %{_libdir}/libgsf-?.so.*.*
 
 %files devel
@@ -199,4 +232,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gsf-office-thumbnailer
 %{_sysconfdir}/gconf/schemas/gsf-office-thumbnailer.schemas
 %{_mandir}/man1/gsf-office-thumbnailer.1*
+%endif
+
+%files -n python-gsf
+%defattr(644,root,root,755)
+%dir %{py_sitedir}/gsf
+%attr(755,root,root) %{py_sitedir}/gsf/_gsfmodule.so
+%dir %{py_sitescriptdir}/gsf
+%{py_sitescriptdir}/gsf/*.py[co]
+
+%if %{with gnome}
+%files -n python-gsf-gnome
+%defattr(644,root,root,755)
+%attr(755,root,root) %{py_sitedir}/gsf/gnomemodule.so
 %endif
