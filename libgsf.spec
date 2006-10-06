@@ -123,7 +123,7 @@ Prosty program tworz±cy miniaturki dokumentów.
 
 %package -n python-gsf
 Summary:	Python gsf module
-Summary(pl):	Modu³ gsf dla pythona
+Summary(pl):	Modu³ gsf dla Pythona
 Group:		Libraries
 %pyrequires_eq	python-libs
 Requires:	%{name} = %{version}-%{release}
@@ -133,11 +133,11 @@ Requires:	python-pygtk-gtk >= 2:2.10.2
 Python gsf library.
 
 %description -n python-gsf -l pl
-Biblioteka gsf dla pythona.
+Biblioteka gsf dla Pythona.
 
 %package -n python-gsf-gnome
 Summary:	Python gsf-gnome module
-Summary(pl):	Modu³ gsf-gnome dla pythona
+Summary(pl):	Modu³ gsf-gnome dla Pythona
 Group:		Libraries
 %pyrequires_eq	python-libs
 Requires:	python-gsf = %{version}-%{release}
@@ -146,7 +146,7 @@ Requires:	python-gsf = %{version}-%{release}
 Python gsf-gnome library.
 
 %description -n python-gsf-gnome -l pl
-Biblioteka gsf-gnome dla pythona.
+Biblioteka gsf-gnome dla Pythona.
 
 %prep
 %setup -q
