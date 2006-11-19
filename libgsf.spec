@@ -6,18 +6,18 @@
 Summary:	GNOME Structured File library
 Summary(pl):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.2
+Version:	1.14.3
 Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
-# Source0-md5:	aea16a8408b65f95c308b0db3e3d3d47
+# Source0-md5:	c707a7ffc3e2bf802556bae86a453020
 Patch0:		%{name}-no_GConf2_macros.patch
 URL:		http://www.gnumeric.org/
 BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	ORBit2-devel >= 1:2.14.3
 BuildRequires:	autoconf >= 2.54
-BuildRequires:	automake
+BuildRequires:	automake >= 1:1.7.1
 BuildRequires:	bzip2-devel
 BuildRequires:	glib2-devel >= 1:2.12.4
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.7}
@@ -25,9 +25,12 @@ BuildRequires:	gtk-doc-automake
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	pkgconfig
+BuildRequires:	python-pygobject-devel >= 2.10.0
+# for pygtk-codegen-2.0
 BuildRequires:	python-pygtk-devel >= 2:2.10.2
 # GNOME BR
 %if %{with gnome}
+BuildRequires:	libbonobo-devel >= 2.0.0
 BuildRequires:	gnome-vfs2-devel >= 2.16.1
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -127,7 +130,7 @@ Summary(pl):	Modu³ gsf dla Pythona
 Group:		Libraries
 %pyrequires_eq	python-libs
 Requires:	%{name} = %{version}-%{release}
-Requires:	python-pygtk-gtk >= 2:2.10.2
+Requires:	python-pygobject >= 2.10.0
 
 %description -n python-gsf
 Python gsf library.
