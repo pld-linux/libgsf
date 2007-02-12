@@ -4,7 +4,7 @@
 %bcond_without	gnome		# without GNOME extensions packages
 #
 Summary:	GNOME Structured File library
-Summary(pl):	Biblioteka plikÛw strukturalnych dla GNOME
+Summary(pl.UTF-8):   Biblioteka plik√≥w strukturalnych dla GNOME
 Name:		libgsf
 Version:	1.14.3
 Release:	1
@@ -39,13 +39,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 A library for reading and writing structured files (e.g. MS OLE and
 Zip).
 
-%description -l pl
-Biblioteka do odczytu i zapisu plikÛw strukturalnych (np. MS OLE lub
+%description -l pl.UTF-8
+Biblioteka do odczytu i zapisu plik√≥w strukturalnych (np. MS OLE lub
 Zip).
 
 %package devel
 Summary:	Support files necessary to compile applications with libgsf
-Summary(pl):	Pliki do kompilowania aplikacji uøywaj±cych libgsf
+Summary(pl.UTF-8):   Pliki do kompilowania aplikacji u≈ºywajƒÖcych libgsf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
@@ -57,37 +57,37 @@ Requires:	libxml2-devel >= 1:2.6.26
 Headers, and support files necessary to compile applications using
 libgsf.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe i inne potrzebne do kompilowania aplikacji
-uøywaj±cych libgsf.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe i inne potrzebne do kompilowania aplikacji
+u≈ºywajƒÖcych libgsf.
 
 %package static
 Summary:	libgsf static libraries
-Summary(pl):	Statyczne biblioteki libgsf
+Summary(pl.UTF-8):   Statyczne biblioteki libgsf
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Package contains static libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczne biblioteki libgsf.
 
 %package gnome
 Summary:	GNOME specific extensions to libgsf
-Summary(pl):	Rozszerzenia GNOME do biblioteki libgsf
+Summary(pl.UTF-8):   Rozszerzenia GNOME do biblioteki libgsf
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description gnome
 GNOME specific extensions to libgsf.
 
-%description gnome -l pl
+%description gnome -l pl.UTF-8
 Rozszerzenia GNOME do biblioteki libgsf.
 
 %package gnome-devel
 Summary:	libgsf-gnome header files
-Summary(pl):	Pliki nag≥Ûwkowe libgsf-gnome
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe libgsf-gnome
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-gnome = %{version}-%{release}
@@ -96,24 +96,24 @@ Requires:	gnome-vfs2-devel >= 2.16.1
 %description gnome-devel
 libgsf-gnome header files.
 
-%description gnome-devel -l pl
-Pliki nag≥Ûwkowe libgsf-gnome.
+%description gnome-devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe libgsf-gnome.
 
 %package gnome-static
 Summary:	Static libgsf-gnome library
-Summary(pl):	Statyczna biblioteka libgsf-gnome
+Summary(pl.UTF-8):   Statyczna biblioteka libgsf-gnome
 Group:		Development/Libraries
 Requires:	%{name}-gnome-devel = %{version}-%{release}
 
 %description gnome-static
 Static libgsf-gnome library.
 
-%description gnome-static -l pl
+%description gnome-static -l pl.UTF-8
 Statyczna biblioteka libgsf-gnome.
 
 %package -n gsf-office-thumbnailer
 Summary:	Simple document thumbnailer
-Summary(pl):	Prosty generator miniatur dokumentÛw
+Summary(pl.UTF-8):   Prosty generator miniatur dokument√≥w
 Group:		X11/Applications
 Requires(post,preun):   GConf2
 Requires:	%{name}-gnome = %{version}-%{release}
@@ -121,12 +121,12 @@ Requires:	%{name}-gnome = %{version}-%{release}
 %description -n gsf-office-thumbnailer
 Simple document thumbnailer.
 
-%description -n gsf-office-thumbnailer -l pl
-Prosty program tworz±cy miniaturki dokumentÛw.
+%description -n gsf-office-thumbnailer -l pl.UTF-8
+Prosty program tworzƒÖcy miniaturki dokument√≥w.
 
 %package -n python-gsf
 Summary:	Python gsf module
-Summary(pl):	Modu≥ gsf dla Pythona
+Summary(pl.UTF-8):   Modu≈Ç gsf dla Pythona
 Group:		Libraries
 %pyrequires_eq	python-libs
 Requires:	%{name} = %{version}-%{release}
@@ -135,12 +135,12 @@ Requires:	python-pygobject >= 2.10.0
 %description -n python-gsf
 Python gsf library.
 
-%description -n python-gsf -l pl
+%description -n python-gsf -l pl.UTF-8
 Biblioteka gsf dla Pythona.
 
 %package -n python-gsf-gnome
 Summary:	Python gsf-gnome module
-Summary(pl):	Modu≥ gsf-gnome dla Pythona
+Summary(pl.UTF-8):   Modu≈Ç gsf-gnome dla Pythona
 Group:		Libraries
 %pyrequires_eq	python-libs
 Requires:	python-gsf = %{version}-%{release}
@@ -148,7 +148,7 @@ Requires:	python-gsf = %{version}-%{release}
 %description -n python-gsf-gnome
 Python gsf-gnome library.
 
-%description -n python-gsf-gnome -l pl
+%description -n python-gsf-gnome -l pl.UTF-8
 Biblioteka gsf-gnome dla Pythona.
 
 %prep
