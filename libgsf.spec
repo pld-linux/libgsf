@@ -4,7 +4,7 @@
 %bcond_without	gnome		# without GNOME extensions packages
 #
 Summary:	GNOME Structured File library
-Summary(pl.UTF-8):   Biblioteka plików strukturalnych dla GNOME
+Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
 Version:	1.14.3
 Release:	1
@@ -45,7 +45,7 @@ Zip).
 
 %package devel
 Summary:	Support files necessary to compile applications with libgsf
-Summary(pl.UTF-8):   Pliki do kompilowania aplikacji używających libgsf
+Summary(pl.UTF-8):	Pliki do kompilowania aplikacji używających libgsf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
@@ -63,7 +63,7 @@ używających libgsf.
 
 %package static
 Summary:	libgsf static libraries
-Summary(pl.UTF-8):   Statyczne biblioteki libgsf
+Summary(pl.UTF-8):	Statyczne biblioteki libgsf
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -75,7 +75,7 @@ Statyczne biblioteki libgsf.
 
 %package gnome
 Summary:	GNOME specific extensions to libgsf
-Summary(pl.UTF-8):   Rozszerzenia GNOME do biblioteki libgsf
+Summary(pl.UTF-8):	Rozszerzenia GNOME do biblioteki libgsf
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -87,7 +87,7 @@ Rozszerzenia GNOME do biblioteki libgsf.
 
 %package gnome-devel
 Summary:	libgsf-gnome header files
-Summary(pl.UTF-8):   Pliki nagłówkowe libgsf-gnome
+Summary(pl.UTF-8):	Pliki nagłówkowe libgsf-gnome
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-gnome = %{version}-%{release}
@@ -101,7 +101,7 @@ Pliki nagłówkowe libgsf-gnome.
 
 %package gnome-static
 Summary:	Static libgsf-gnome library
-Summary(pl.UTF-8):   Statyczna biblioteka libgsf-gnome
+Summary(pl.UTF-8):	Statyczna biblioteka libgsf-gnome
 Group:		Development/Libraries
 Requires:	%{name}-gnome-devel = %{version}-%{release}
 
@@ -113,7 +113,7 @@ Statyczna biblioteka libgsf-gnome.
 
 %package -n gsf-office-thumbnailer
 Summary:	Simple document thumbnailer
-Summary(pl.UTF-8):   Prosty generator miniatur dokumentów
+Summary(pl.UTF-8):	Prosty generator miniatur dokumentów
 Group:		X11/Applications
 Requires(post,preun):   GConf2
 Requires:	%{name}-gnome = %{version}-%{release}
@@ -126,7 +126,7 @@ Prosty program tworzący miniaturki dokumentów.
 
 %package -n python-gsf
 Summary:	Python gsf module
-Summary(pl.UTF-8):   Moduł gsf dla Pythona
+Summary(pl.UTF-8):	Moduł gsf dla Pythona
 Group:		Libraries
 %pyrequires_eq	python-libs
 Requires:	%{name} = %{version}-%{release}
@@ -140,7 +140,7 @@ Biblioteka gsf dla Pythona.
 
 %package -n python-gsf-gnome
 Summary:	Python gsf-gnome module
-Summary(pl.UTF-8):   Moduł gsf-gnome dla Pythona
+Summary(pl.UTF-8):	Moduł gsf-gnome dla Pythona
 Group:		Libraries
 %pyrequires_eq	python-libs
 Requires:	python-gsf = %{version}-%{release}
