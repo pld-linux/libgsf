@@ -7,7 +7,7 @@ Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
 Version:	1.14.3
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
@@ -50,7 +50,6 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
 Requires:	glib2-devel >= 1:2.12.4
-Requires:	gtk-doc-common >= 1.7
 Requires:	libxml2-devel >= 1:2.6.26
 
 %description devel
@@ -72,6 +71,18 @@ Package contains static libraries.
 
 %description static -l pl.UTF-8
 Statyczne biblioteki libgsf.
+
+%package apidocs
+Summary:	libgsf API documentation
+Summary(pl.UTF-8):	Dokumentacja API libgsf
+Group:		Documentation
+Requires:	gtk-doc-common
+
+%description apidocs
+libgsf API documentation.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API libgsf.
 
 %package gnome
 Summary:	GNOME specific extensions to libgsf
@@ -163,7 +174,7 @@ rm -f acinclude.m4
 %{__automake}
 %configure \
 	%{?with_apidocs:--enable-gtk-doc} \
-	--with-html-dir=%{_gtkdocdir}/%{name} \
+	--with-html-dir=%{_gtkdocdir} \
 	%{!?with_gnome:--without-gnome}
 %{__make}
 
@@ -208,11 +219,16 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/libgsf-1
 %{_includedir}/libgsf-1/gsf
 %{_pkgconfigdir}/libgsf-?.pc
-%{_gtkdocdir}/%{name}
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libgsf-?.a
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
+%{_gtkdocdir}/gsf
+%endif
 
 %if %{with gnome}
 %files gnome
