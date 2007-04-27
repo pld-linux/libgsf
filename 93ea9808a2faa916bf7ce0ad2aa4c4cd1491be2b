@@ -1,0 +1,3 @@
+- updated to 1.14.2 [fixes CVE-2006-4514]
+- added python-gsf and python-gsf-gnome subpackages
+- updated %%files
