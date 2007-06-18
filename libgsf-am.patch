@@ -1,0 +1,10 @@
+--- libgsf-1.14.4/configure.in.orig	2007-06-18 18:54:02.998807000 +0200
++++ libgsf-1.14.4/configure.in	2007-06-18 19:24:31.427003249 +0200
+@@ -367,6 +367,7 @@
+ have_gnome=no
+ if  test $want_gnome = no ; then 
+     AC_MSG_WARN([GNOME support disabled, as requested (Use --with-gnome to enable)])
++    AM_CONDITIONAL(WITH_BONOBO, false)
+ else
+     dnl check for bonobo
+     AC_ARG_WITH(bonobo,
