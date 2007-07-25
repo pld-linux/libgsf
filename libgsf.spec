@@ -6,14 +6,13 @@
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.4
+Version:	1.14.5
 Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
-# Source0-md5:	2d07ad2f1336c101ce14982ba7289f80
+# Source0-md5:	0c1a70ca77aef5706544c1b4082a632a
 Patch0:		%{name}-no_GConf2_macros.patch
-Patch1:		%{name}-am.patch
 URL:		http://www.gnumeric.org/
 BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	ORBit2-devel >= 1:2.14.3
@@ -166,7 +165,6 @@ Biblioteka gsf-gnome dla Pythona.
 %prep
 %setup -q
 %{!?with_gnome:%patch0 -p1}
-%patch1 -p1
 
 %build
 rm -f acinclude.m4
@@ -213,6 +211,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gsf
 %attr(755,root,root) %{_bindir}/gsf-vba-dump
 %attr(755,root,root) %{_libdir}/libgsf-?.so.*.*
+%{_mandir}/man1/gsf.1*
 
 %files devel
 %defattr(644,root,root,755)
