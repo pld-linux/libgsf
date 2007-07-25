@@ -1,11 +1,13 @@
---- libgsf-1.13.3/configure.in.orig	2005-10-11 16:51:56.000000000 +0200
-+++ libgsf-1.13.3/configure.in	2005-12-01 17:30:25.000000000 +0100
-@@ -357,16 +357,7 @@
+diff -urN libgsf-1.14.5/configure.in libgsf-1.14.5.new/configure.in
+--- libgsf-1.14.5/configure.in	2007-07-10 12:33:55.000000000 +0200
++++ libgsf-1.14.5.new/configure.in	2007-07-26 01:04:32.000000000 +0200
+@@ -401,17 +401,7 @@
  dnl The following conditional is set in AM_GCONF_SOURCE_2.
  dnl Because we may skip its execution, we have to set a default here.
  AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL], [false])
 -
 -dnl Don't publish the GCONFTOOL variable, AM_GCONF_SOURCE_2 has ``gconftool-2'' hardwired.
+-m4_pattern_allow([^AM_GCONF_SOURCE_2$])
 -GCONFTOOL=
 -AC_CHECK_PROG([GCONFTOOL], [gconftool-2], [gconftool-2], [no])
 -if test "x$GCONFTOOL" = "xno"; then
