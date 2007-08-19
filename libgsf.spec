@@ -2,6 +2,7 @@
 # Conditional build:
 %bcond_without	apidocs		# disable gtk-doc
 %bcond_without	gnome		# without GNOME extensions packages
+%bcond_without	static_libs	# don't build static libraries
 #
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
@@ -175,7 +176,8 @@ rm -f acinclude.m4
 %configure \
 	%{?with_apidocs:--enable-gtk-doc} \
 	--with-html-dir=%{_gtkdocdir} \
-	%{!?with_gnome:--without-gnome}
+	%{!?with_gnome:--without-gnome} \
+	%{!?with_static_libs:--disable-static}
 %{__make}
 
 %install
@@ -221,9 +223,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/libgsf-1/gsf
 %{_pkgconfigdir}/libgsf-?.pc
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libgsf-?.a
+%endif
 
 %if %{with apidocs}
 %files apidocs
@@ -243,9 +247,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/libgsf-1/gsf-gnome
 %{_pkgconfigdir}/libgsf-gnome-?.pc
 
+%if %{with static_libs}
 %files gnome-static
 %defattr(644,root,root,755)
 %{_libdir}/libgsf-gnome-?.a
+%endif
 
 %files -n gsf-office-thumbnailer
 %defattr(644,root,root,755)
