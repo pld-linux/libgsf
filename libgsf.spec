@@ -212,21 +212,22 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS README NEWS
 %attr(755,root,root) %{_bindir}/gsf
 %attr(755,root,root) %{_bindir}/gsf-vba-dump
-%attr(755,root,root) %{_libdir}/libgsf-?.so.*.*
+%attr(755,root,root) %{_libdir}/libgsf-1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgsf-1.so.114
 %{_mandir}/man1/gsf.1*
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/libgsf-?.la
-%attr(755,root,root) %{_libdir}/libgsf-?.so
+%attr(755,root,root) %{_libdir}/libgsf-1.so
+%{_libdir}/libgsf-1.la
 %dir %{_includedir}/libgsf-1
 %{_includedir}/libgsf-1/gsf
-%{_pkgconfigdir}/libgsf-?.pc
+%{_pkgconfigdir}/libgsf-1.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libgsf-?.a
+%{_libdir}/libgsf-1.a
 %endif
 
 %if %{with apidocs}
@@ -238,19 +239,20 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with gnome}
 %files gnome
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgsf-gnome-?.so.*.*
+%attr(755,root,root) %{_libdir}/libgsf-gnome-1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgsf-gnome-1.so.114
 
 %files gnome-devel
 %defattr(644,root,root,755)
-%{_libdir}/libgsf-gnome-?.la
 %attr(755,root,root) %{_libdir}/libgsf-gnome-?.so
+%{_libdir}/libgsf-gnome-1.la
 %{_includedir}/libgsf-1/gsf-gnome
-%{_pkgconfigdir}/libgsf-gnome-?.pc
+%{_pkgconfigdir}/libgsf-gnome-1.pc
 
 %if %{with static_libs}
 %files gnome-static
 %defattr(644,root,root,755)
-%{_libdir}/libgsf-gnome-?.a
+%{_libdir}/libgsf-gnome-1.a
 %endif
 
 %files -n gsf-office-thumbnailer
