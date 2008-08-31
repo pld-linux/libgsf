@@ -1,9 +1,15 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# disable gtk-doc
+%bcond_without	bonobo		# without bonobo support in GNOME extension
 %bcond_without	gnome		# without GNOME extensions packages
+%bcond_with	gnomevfs	# use gnome-vfs instead of gio in GNOME extension
 %bcond_without	static_libs	# don't build static libraries
 #
+%if %{without gnome}
+%undefine	with_bonobo
+%undefine	with_gnomevfs
+%endif
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
@@ -14,26 +20,25 @@ Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
 # Source0-md5:	422a8461927b863780d3579991a915a5
 Patch0:		%{name}-no_GConf2_macros.patch
+Patch1:		%{name}-gio.patch
 URL:		http://www.gnumeric.org/
 BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	ORBit2-devel >= 1:2.14.3
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
 BuildRequires:	bzip2-devel
-BuildRequires:	glib2-devel >= 1:2.12.4
+# gio-2.0
+BuildRequires:	glib2-devel >= 1:2.16.0
+%{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.16.1}
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.7}
 BuildRequires:	gtk-doc-automake
+%{?with_bonobo:BuildRequires:	libbonobo-devel >= 2.0.0}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	pkgconfig
 BuildRequires:	python-pygobject-devel >= 2.10.0
 # for pygtk-codegen-2.0
 BuildRequires:	python-pygtk-devel >= 2:2.10.2
-# GNOME BR
-%if %{with gnome}
-BuildRequires:	libbonobo-devel >= 2.0.0
-BuildRequires:	gnome-vfs2-devel >= 2.16.1
-%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -50,7 +55,7 @@ Summary(pl.UTF-8):	Pliki do kompilowania aplikacji używających libgsf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
-Requires:	glib2-devel >= 1:2.12.4
+Requires:	glib2-devel >= 1:2.16.0
 Requires:	libxml2-devel >= 1:2.6.26
 
 %description devel
@@ -103,7 +108,8 @@ Summary(pl.UTF-8):	Pliki nagłówkowe libgsf-gnome
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-gnome = %{version}-%{release}
-Requires:	gnome-vfs2-devel >= 2.16.1
+%{?with_bonobo:Requires:	gnome-vfs2-devel >= 2.16.1}
+%{?with_gnomevfs:Requires:	libbonobo-devel >= 2.0.0}
 
 %description gnome-devel
 libgsf-gnome header files.
@@ -166,18 +172,26 @@ Biblioteka gsf-gnome dla Pythona.
 %prep
 %setup -q
 %{!?with_gnome:%patch0 -p1}
+%patch1 -p1
 
 %build
-rm -f acinclude.m4
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
+	%{!?with_static_libs:--disable-static} \
 	%{?with_apidocs:--enable-gtk-doc} \
 	--with-html-dir=%{_gtkdocdir} \
-	%{!?with_gnome:--without-gnome} \
-	%{!?with_static_libs:--disable-static}
+	%{!?with_gnomevfs:--with-gio} \
+%if %{with gnome}
+	%{!?with_bonobo:--without-bonobo} \
+	--with-gnome-vfs
+%else
+	--without-bonobo \
+	--without-gnome-vfs
+%endif
 %{__make}
 
 %install
