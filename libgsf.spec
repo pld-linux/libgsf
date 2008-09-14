@@ -27,11 +27,13 @@ BuildRequires:	ORBit2-devel >= 1:2.14.3
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
 BuildRequires:	bzip2-devel
+BuildRequires:	gettext-devel
 # gio-2.0
 BuildRequires:	glib2-devel >= 1:2.16.0
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.16.1}
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.7}
-BuildRequires:	gtk-doc-automake
+%{?with_apidocs:BuildRequires:	gtk-doc-automake}
+BuildRequires:	intltool
 %{?with_bonobo:BuildRequires:	libbonobo-devel >= 2.0.0}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.26
@@ -39,6 +41,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	python-pygobject-devel >= 2.10.0
 # for pygtk-codegen-2.0
 BuildRequires:	python-pygtk-devel >= 2:2.10.2
+BuildRequires:	rpm-pythonprov
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
