@@ -208,9 +208,6 @@ rm -rf $RPM_BUILD_ROOT%{_includedir}/%{name}-1/gsf-win32
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/gsf/*.{la,a}
 rm -f $RPM_BUILD_ROOT%{py_sitescriptdir}/gsf/*.py
 
-# used by gsf-gnome/gsf-{input,output}-gnomevfs.h
-cp gsf-config.h $RPM_BUILD_ROOT%{_includedir}/%{name}-1
-
 %find_lang %{name}
 
 %clean
@@ -243,7 +240,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgsf-1.so
 %{_libdir}/libgsf-1.la
 %dir %{_includedir}/libgsf-1
-%{_includedir}/libgsf-1/*.h
 %{_includedir}/libgsf-1/gsf
 %{_pkgconfigdir}/libgsf-1.pc
 
