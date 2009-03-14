@@ -13,12 +13,12 @@
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.9
-Release:	7
+Version:	1.14.11
+Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
-# Source0-md5:	422a8461927b863780d3579991a915a5
+# Source0-md5:	86bec0012435fbafe02a6e4c88bdf9ba
 Patch0:		%{name}-no_GConf2_macros.patch
 Patch1:		%{name}-gio.patch
 URL:		http://www.gnumeric.org/
@@ -42,6 +42,7 @@ BuildRequires:	python-pygobject-devel >= 2.10.0
 # for pygtk-codegen-2.0
 BuildRequires:	python-pygtk-devel >= 2:2.10.2
 BuildRequires:	rpm-pythonprov
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -111,8 +112,8 @@ Summary(pl.UTF-8):	Pliki nagłówkowe libgsf-gnome
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-gnome = %{version}-%{release}
-%{?with_bonobo:Requires:	gnome-vfs2-devel >= 2.16.1}
-%{?with_gnomevfs:Requires:	libbonobo-devel >= 2.0.0}
+%{?with_gnomevfs:Requires:	gnome-vfs2-devel >= 2.16.1}
+%{?with_bonobo:Requires:	libbonobo-devel >= 2.0.0}
 
 %description gnome-devel
 libgsf-gnome header files.
@@ -136,7 +137,7 @@ Statyczna biblioteka libgsf-gnome.
 Summary:	Simple document thumbnailer
 Summary(pl.UTF-8):	Prosty generator miniatur dokumentów
 Group:		X11/Applications
-Requires(post,preun):   GConf2
+Requires(post,preun):	GConf2
 Requires:	%{name}-gnome = %{version}-%{release}
 
 %description -n gsf-office-thumbnailer
