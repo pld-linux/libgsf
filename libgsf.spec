@@ -27,6 +27,7 @@ BuildRequires:	ORBit2-devel >= 1:2.14.3
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
 BuildRequires:	bzip2-devel
+BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 # gio-2.0
 BuildRequires:	glib2-devel >= 1:2.16.0
