@@ -13,14 +13,13 @@
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.13
+Version:	1.14.16
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
-# Source0-md5:	b522ddfdb72cdfee3dbf3576aed8c285
+# Source0-md5:	8478d83fda0b6e57f36550c11a693ee1
 Patch0:		%{name}-no_GConf2_macros.patch
-Patch1:		%{name}-gio.patch
 URL:		http://www.gnumeric.org/
 BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	ORBit2-devel >= 1:2.14.3
@@ -177,9 +176,9 @@ Biblioteka gsf-gnome dla Pythona.
 %prep
 %setup -q
 %{!?with_gnome:%patch0 -p1}
-%patch1 -p1
 
 %build
+%{?with_apidocs:%{__gtkdocize}}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
