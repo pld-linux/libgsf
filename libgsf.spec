@@ -13,12 +13,12 @@
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.16
-Release:	2
+Version:	1.14.18
+Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
-# Source0-md5:	8478d83fda0b6e57f36550c11a693ee1
+# Source0-md5:	2c15d875b1931c40c7e7a2368f3ed948
 Patch0:		%{name}-no_GConf2_macros.patch
 URL:		http://www.gnumeric.org/
 BuildRequires:	GConf2-devel >= 2.14.0
@@ -33,7 +33,7 @@ BuildRequires:	glib2-devel >= 1:2.16.0
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.16.1}
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.7}
 %{?with_apidocs:BuildRequires:	gtk-doc-automake}
-BuildRequires:	intltool
+BuildRequires:	intltool >= 0.35.0
 %{?with_bonobo:BuildRequires:	libbonobo-devel >= 2.0.0}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.26
@@ -185,6 +185,7 @@ Biblioteka gsf-gnome dla Pythona.
 %{__autoheader}
 %{__automake}
 %configure \
+	--disable-silent-rules \
 	%{!?with_static_libs:--disable-static} \
 	%{?with_apidocs:--enable-gtk-doc} \
 	--with-html-dir=%{_gtkdocdir} \
