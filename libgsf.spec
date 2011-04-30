@@ -13,12 +13,12 @@
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.19
+Version:	1.14.20
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
-# Source0-md5:	2d09ad4e61a650b5d554b5fca8250046
+# Source0-md5:	e7a19d0e7c3be748df4f1ed59cdefa16
 Patch0:		%{name}-no_GConf2_macros.patch
 URL:		http://www.gnumeric.org/
 BuildRequires:	GConf2-devel >= 2.14.0
@@ -205,9 +205,12 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf $RPM_BUILD_ROOT%{_includedir}/%{name}-1/gsf-win32
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/gsf/*.{la,a}
-rm -f $RPM_BUILD_ROOT%{py_sitescriptdir}/gsf/*.py
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/gsf/*.{la,a}
+%{__rm} $RPM_BUILD_ROOT%{py_sitescriptdir}/gsf/*.py
+
+%if %{without bonobo} && %{without gnomevfs}
+%{__rm} -r $RPM_BUILD_ROOT%{_includedir}/libgsf-1/gsf-gnome
+%endif
 
 %find_lang %{name}
 
@@ -256,7 +259,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_gtkdocdir}/gsf
 %endif
 
-%if %{with gnome}
+%if %{with bonobo} || %{with gnomevfs}
 %files gnome
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgsf-gnome-1.so.*.*.*
@@ -264,7 +267,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gnome-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgsf-gnome-?.so
+%attr(755,root,root) %{_libdir}/libgsf-gnome-1.so
 %{_libdir}/libgsf-gnome-1.la
 %{_includedir}/libgsf-1/gsf-gnome
 %{_pkgconfigdir}/libgsf-gnome-1.pc
@@ -274,13 +277,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libgsf-gnome-1.a
 %endif
+%endif
 
 %files -n gsf-office-thumbnailer
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gsf-office-thumbnailer
 %{_sysconfdir}/gconf/schemas/gsf-office-thumbnailer.schemas
 %{_mandir}/man1/gsf-office-thumbnailer.1*
-%endif
 
 %files -n python-gsf
 %defattr(644,root,root,755)
@@ -289,7 +292,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitescriptdir}/gsf
 %{py_sitescriptdir}/gsf/*.py[co]
 
-%if %{with gnome}
+%if %{with bonobo} || %{with gnomevfs}
 %files -n python-gsf-gnome
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/gsf/gnomemodule.so
