@@ -21,7 +21,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.t
 # Source0-md5:	2b702648b853402554c97d75405c60d3
 Patch0:		%{name}-no_GConf2_macros.patch
 URL:		http://www.gnumeric.org/
-BuildRequires:	GConf2-devel >= 2.14.0
+BuildRequires:	GConf2-devel >= 2.24.0
 BuildRequires:	ORBit2-devel >= 1:2.14.3
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
@@ -137,7 +137,7 @@ Statyczna biblioteka libgsf-gnome.
 Summary:	Simple document thumbnailer
 Summary(pl.UTF-8):	Prosty generator miniatur dokumentów
 Group:		X11/Applications
-Requires(post,preun):	GConf2
+Requires(post,preun):	GConf2 >= 2.24.0
 Requires:	%{name}-gnome = %{version}-%{release}
 
 %description -n gsf-office-thumbnailer
