@@ -1,40 +1,29 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# disable gtk-doc
-%bcond_without	bonobo		# without bonobo support in GNOME extension
-%bcond_without	gnome		# without GNOME extensions packages
-%bcond_with	gnomevfs	# use gnome-vfs instead of gio in GNOME extension
 %bcond_without	static_libs	# don't build static libraries
 #
-%if %{without gnome}
-%undefine	with_bonobo
-%undefine	with_gnomevfs
-%endif
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.21
+Version:	1.14.25
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.tar.bz2
-# Source0-md5:	2b702648b853402554c97d75405c60d3
-Patch0:		%{name}-no_GConf2_macros.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.tar.xz
+# Source0-md5:	a66a2c6fc327bc62bebe3f988c4f45f3
 URL:		http://www.gnumeric.org/
-BuildRequires:	GConf2-devel >= 2.24.0
-BuildRequires:	ORBit2-devel >= 1:2.14.3
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
 BuildRequires:	bzip2-devel
 BuildRequires:	docbook-dtd412-xml
+BuildRequires:	gdk-pixbuf2-devel >= 2.0
 BuildRequires:	gettext-devel
-# gio-2.0
-BuildRequires:	glib2-devel >= 1:2.16.0
-%{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.16.1}
-%{?with_apidocs:BuildRequires:	gtk-doc >= 1.7}
-%{?with_apidocs:BuildRequires:	gtk-doc-automake}
+BuildRequires:	glib2-devel >= 1:2.26.0
+BuildRequires:	gobject-introspection-devel >= 1.0.0
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.12}
+%{?with_apidocs:BuildRequires:	gtk-doc-automake >= 1.12}
 BuildRequires:	intltool >= 0.35.0
-%{?with_bonobo:BuildRequires:	libbonobo-devel >= 2.0.0}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	pkgconfig
@@ -42,7 +31,12 @@ BuildRequires:	python-pygobject-devel >= 2.10.0
 # for pygtk-codegen-2.0
 BuildRequires:	python-pygtk-devel >= 2:2.10.2
 BuildRequires:	rpm-pythonprov
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 BuildRequires:	zlib-devel
+Requires:	glib2 >= 1:2.26.0
+Requires:	libxml2 >= 1:2.6.26
+Obsoletes:	libgsf-gnome
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -59,8 +53,9 @@ Summary(pl.UTF-8):	Pliki do kompilowania aplikacji używających libgsf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
-Requires:	glib2-devel >= 1:2.16.0
+Requires:	glib2-devel >= 1:2.26.0
 Requires:	libxml2-devel >= 1:2.6.26
+Obsoletes:	libgsf-gnome-devel
 
 %description devel
 Headers, and support files necessary to compile applications using
@@ -75,6 +70,7 @@ Summary:	libgsf static libraries
 Summary(pl.UTF-8):	Statyczne biblioteki libgsf
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+Obsoletes:	libgsf-gnome-static
 
 %description static
 Package contains static libraries.
@@ -94,51 +90,11 @@ libgsf API documentation.
 %description apidocs -l pl.UTF-8
 Dokumentacja API libgsf.
 
-%package gnome
-Summary:	GNOME specific extensions to libgsf
-Summary(pl.UTF-8):	Rozszerzenia GNOME do biblioteki libgsf
-Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-
-%description gnome
-GNOME specific extensions to libgsf.
-
-%description gnome -l pl.UTF-8
-Rozszerzenia GNOME do biblioteki libgsf.
-
-%package gnome-devel
-Summary:	libgsf-gnome header files
-Summary(pl.UTF-8):	Pliki nagłówkowe libgsf-gnome
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-gnome = %{version}-%{release}
-%{?with_gnomevfs:Requires:	gnome-vfs2-devel >= 2.16.1}
-%{?with_bonobo:Requires:	libbonobo-devel >= 2.0.0}
-
-%description gnome-devel
-libgsf-gnome header files.
-
-%description gnome-devel -l pl.UTF-8
-Pliki nagłówkowe libgsf-gnome.
-
-%package gnome-static
-Summary:	Static libgsf-gnome library
-Summary(pl.UTF-8):	Statyczna biblioteka libgsf-gnome
-Group:		Development/Libraries
-Requires:	%{name}-gnome-devel = %{version}-%{release}
-
-%description gnome-static
-Static libgsf-gnome library.
-
-%description gnome-static -l pl.UTF-8
-Statyczna biblioteka libgsf-gnome.
-
 %package -n gsf-office-thumbnailer
 Summary:	Simple document thumbnailer
 Summary(pl.UTF-8):	Prosty generator miniatur dokumentów
 Group:		X11/Applications
-Requires(post,preun):	GConf2 >= 2.24.0
-Requires:	%{name}-gnome = %{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 
 %description -n gsf-office-thumbnailer
 Simple document thumbnailer.
@@ -153,6 +109,7 @@ Group:		Libraries
 %pyrequires_eq	python-libs
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-pygobject >= 2.10.0
+Obsoletes:	python-gsf-gnome
 
 %description -n python-gsf
 Python gsf library.
@@ -160,22 +117,8 @@ Python gsf library.
 %description -n python-gsf -l pl.UTF-8
 Biblioteka gsf dla Pythona.
 
-%package -n python-gsf-gnome
-Summary:	Python gsf-gnome module
-Summary(pl.UTF-8):	Moduł gsf-gnome dla Pythona
-Group:		Libraries
-%pyrequires_eq	python-libs
-Requires:	python-gsf = %{version}-%{release}
-
-%description -n python-gsf-gnome
-Python gsf-gnome library.
-
-%description -n python-gsf-gnome -l pl.UTF-8
-Biblioteka gsf-gnome dla Pythona.
-
 %prep
 %setup -q
-%{!?with_gnome:%patch0 -p1}
 
 %build
 %{?with_apidocs:%{__gtkdocize}}
@@ -188,15 +131,9 @@ Biblioteka gsf-gnome dla Pythona.
 	--disable-silent-rules \
 	%{!?with_static_libs:--disable-static} \
 	%{?with_apidocs:--enable-gtk-doc} \
+	--enable-introspection \
 	--with-html-dir=%{_gtkdocdir} \
-	%{!?with_gnomevfs:--with-gio} \
-%if %{with gnome}
-	%{!?with_bonobo:--without-bonobo} \
-	--with-gnome-vfs
-%else
-	--without-bonobo \
-	--without-gnome-vfs
-%endif
+	--with-python
 %{__make}
 
 %install
@@ -208,10 +145,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/gsf/*.{la,a}
 %{__rm} $RPM_BUILD_ROOT%{py_sitescriptdir}/gsf/*.py
 
-%if %{without bonobo} && %{without gnomevfs}
-%{__rm} -r $RPM_BUILD_ROOT%{_includedir}/libgsf-1/gsf-gnome
-%endif
-
 %find_lang %{name}
 
 %clean
@@ -220,15 +153,6 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%post   gnome -p /sbin/ldconfig
-%postun gnome -p /sbin/ldconfig
-
-%post -n gsf-office-thumbnailer
-%gconf_schema_install gsf-office-thumbnailer.schemas
-
-%preun -n gsf-office-thumbnailer
-%gconf_schema_uninstall gsf-office-thumbnailer.schemas
-
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS README NEWS
@@ -236,6 +160,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gsf-vba-dump
 %attr(755,root,root) %{_libdir}/libgsf-1.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgsf-1.so.114
+%{_libdir}/girepository-1.0/Gsf-1.typelib
 %{_mandir}/man1/gsf.1*
 %{_mandir}/man1/gsf-vba-dump.1*
 
@@ -245,6 +170,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgsf-1.la
 %dir %{_includedir}/libgsf-1
 %{_includedir}/libgsf-1/gsf
+%{_datadir}/gir-1.0/Gsf-1.gir
 %{_pkgconfigdir}/libgsf-1.pc
 
 %if %{with static_libs}
@@ -259,30 +185,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_gtkdocdir}/gsf
 %endif
 
-%if %{with bonobo} || %{with gnomevfs}
-%files gnome
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgsf-gnome-1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgsf-gnome-1.so.114
-
-%files gnome-devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgsf-gnome-1.so
-%{_libdir}/libgsf-gnome-1.la
-%{_includedir}/libgsf-1/gsf-gnome
-%{_pkgconfigdir}/libgsf-gnome-1.pc
-
-%if %{with static_libs}
-%files gnome-static
-%defattr(644,root,root,755)
-%{_libdir}/libgsf-gnome-1.a
-%endif
-%endif
-
 %files -n gsf-office-thumbnailer
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gsf-office-thumbnailer
-%{_sysconfdir}/gconf/schemas/gsf-office-thumbnailer.schemas
+%{_datadir}/thumbnailers/gsf-office.thumbnailer
 %{_mandir}/man1/gsf-office-thumbnailer.1*
 
 %files -n python-gsf
@@ -291,9 +197,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/gsf/_gsfmodule.so
 %dir %{py_sitescriptdir}/gsf
 %{py_sitescriptdir}/gsf/*.py[co]
-
-%if %{with bonobo} || %{with gnomevfs}
-%files -n python-gsf-gnome
-%defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/gsf/gnomemodule.so
-%endif
