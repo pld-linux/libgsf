@@ -6,12 +6,12 @@
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.25
+Version:	1.14.26
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.tar.xz
-# Source0-md5:	a66a2c6fc327bc62bebe3f988c4f45f3
+# Source0-md5:	3c5a4fbd16a727c36974078e6d0e9575
 URL:		http://www.gnumeric.org/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
@@ -27,16 +27,13 @@ BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	pkgconfig
-BuildRequires:	python-pygobject-devel >= 2.10.0
-# for pygtk-codegen-2.0
-BuildRequires:	python-pygtk-devel >= 2:2.10.2
-BuildRequires:	rpm-pythonprov
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	zlib-devel
 Requires:	glib2 >= 1:2.26.0
 Requires:	libxml2 >= 1:2.6.26
 Obsoletes:	libgsf-gnome
+Obsoletes:	python-gsf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -102,21 +99,6 @@ Simple document thumbnailer.
 %description -n gsf-office-thumbnailer -l pl.UTF-8
 Prosty program tworzący miniaturki dokumentów.
 
-%package -n python-gsf
-Summary:	Python gsf module
-Summary(pl.UTF-8):	Moduł gsf dla Pythona
-Group:		Libraries
-%pyrequires_eq	python-libs
-Requires:	%{name} = %{version}-%{release}
-Requires:	python-pygobject >= 2.10.0
-Obsoletes:	python-gsf-gnome
-
-%description -n python-gsf
-Python gsf library.
-
-%description -n python-gsf -l pl.UTF-8
-Biblioteka gsf dla Pythona.
-
 %prep
 %setup -q
 
@@ -132,8 +114,8 @@ Biblioteka gsf dla Pythona.
 	%{!?with_static_libs:--disable-static} \
 	%{?with_apidocs:--enable-gtk-doc} \
 	--enable-introspection \
-	--with-html-dir=%{_gtkdocdir} \
-	--with-python
+	--with-html-dir=%{_gtkdocdir}
+
 %{__make}
 
 %install
@@ -141,9 +123,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/gsf/*.{la,a}
-%{__rm} $RPM_BUILD_ROOT%{py_sitescriptdir}/gsf/*.py
 
 %find_lang %{name}
 
@@ -155,7 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS README NEWS
+%doc AUTHORS ChangeLog README NEWS
 %attr(755,root,root) %{_bindir}/gsf
 %attr(755,root,root) %{_bindir}/gsf-vba-dump
 %attr(755,root,root) %{_libdir}/libgsf-1.so.*.*.*
@@ -190,10 +169,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gsf-office-thumbnailer
 %{_datadir}/thumbnailers/gsf-office.thumbnailer
 %{_mandir}/man1/gsf-office-thumbnailer.1*
-
-%files -n python-gsf
-%defattr(644,root,root,755)
-%dir %{py_sitedir}/gsf
-%attr(755,root,root) %{py_sitedir}/gsf/_gsfmodule.so
-%dir %{py_sitescriptdir}/gsf
-%{py_sitescriptdir}/gsf/*.py[co]
