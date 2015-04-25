@@ -24,7 +24,7 @@ BuildRequires:	gobject-introspection-devel >= 1.0.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.12}
 %{?with_apidocs:BuildRequires:	gtk-doc-automake >= 1.12}
 BuildRequires:	intltool >= 0.35.0
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	pkgconfig
 BuildRequires:	tar >= 1:1.22
