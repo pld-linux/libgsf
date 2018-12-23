@@ -6,20 +6,20 @@
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.43
+Version:	1.14.45
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.tar.xz
-# Source0-md5:	c09d4dc12164a7eae587d54c55c6d5bb
-URL:		http://www.gnumeric.org/
+# Source0-md5:	e45cc8aa9c49516d540b7d7307f755f1
+URL:		https://github.com/GNOME/libgsf
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
 BuildRequires:	bzip2-devel
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gdk-pixbuf2-devel >= 2.0
 BuildRequires:	gettext-tools
-BuildRequires:	glib2-devel >= 1:2.26.0
+BuildRequires:	glib2-devel >= 1:2.34.0
 BuildRequires:	gobject-introspection-devel >= 1.0.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.12}
 %{?with_apidocs:BuildRequires:	gtk-doc-automake >= 1.12}
@@ -30,7 +30,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	zlib-devel
-Requires:	glib2 >= 1:2.26.0
+Requires:	glib2 >= 1:2.34.0
 Requires:	libxml2 >= 1:2.6.26
 Obsoletes:	libgsf-gnome
 Obsoletes:	python-gsf
@@ -50,7 +50,7 @@ Summary(pl.UTF-8):	Pliki do kompilowania aplikacji używających libgsf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
-Requires:	glib2-devel >= 1:2.26.0
+Requires:	glib2-devel >= 1:2.34.0
 Requires:	libxml2-devel >= 1:2.6.26
 Obsoletes:	libgsf-gnome-devel
 
