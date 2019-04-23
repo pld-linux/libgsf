@@ -7,7 +7,7 @@ Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
 Version:	1.14.45
-Release:	2
+Release:	3
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/%{name}-%{version}.tar.xz
@@ -127,6 +127,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgsf-1.la
+
 %find_lang %{name}
 
 %clean
@@ -149,7 +152,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgsf-1.so
-%{_libdir}/libgsf-1.la
 %dir %{_includedir}/libgsf-1
 %{_includedir}/libgsf-1/gsf
 %{_datadir}/gir-1.0/Gsf-1.gir
