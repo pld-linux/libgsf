@@ -6,12 +6,12 @@
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.48
+Version:	1.14.49
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	https://download.gnome.org/sources/libgsf/1.14/%{name}-%{version}.tar.xz
-# Source0-md5:	337a0dfa832d2af6f171b53adac697c1
+# Source0-md5:	b1e876dc4e4ce4b11470648b884e534b
 URL:		https://github.com/GNOME/libgsf
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
@@ -26,13 +26,15 @@ BuildRequires:	gobject-introspection-devel >= 1.0.0
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
+BuildRequires:	rpmbuild(macros) >= 1.198
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	zlib-devel
 Requires:	glib2 >= 1:2.36.0
 Requires:	libxml2 >= 1:2.6.26
-Obsoletes:	libgsf-gnome
-Obsoletes:	python-gsf
+Obsoletes:	libgsf-gnome < 1.14.25
+Obsoletes:	python-gsf < 1.14.26
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -51,7 +53,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
 Requires:	glib2-devel >= 1:2.36.0
 Requires:	libxml2-devel >= 1:2.6.26
-Obsoletes:	libgsf-gnome-devel
+Obsoletes:	libgsf-gnome-devel < 1.14.25
 
 %description devel
 Headers, and support files necessary to compile applications using
@@ -66,7 +68,7 @@ Summary:	libgsf static libraries
 Summary(pl.UTF-8):	Statyczne biblioteki libgsf
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-Obsoletes:	libgsf-gnome-static
+Obsoletes:	libgsf-gnome-static < 1.14.25
 
 %description static
 Package contains static libraries.
