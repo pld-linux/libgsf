@@ -1,17 +1,17 @@
 #
 # Conditional build:
-%bcond_without	apidocs		# disable gtk-doc
-%bcond_without	static_libs	# don't build static libraries
+%bcond_without	apidocs		# gtk-doc baed API documentation
+%bcond_without	static_libs	# static library
 
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.49
+Version:	1.14.50
 Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	https://download.gnome.org/sources/libgsf/1.14/%{name}-%{version}.tar.xz
-# Source0-md5:	b1e876dc4e4ce4b11470648b884e534b
+# Source0-md5:	1e9088c9c8869532945a10f12f1829c2
 URL:		https://github.com/GNOME/libgsf
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
