@@ -6,12 +6,12 @@
 Summary:	GNOME Structured File library
 Summary(pl.UTF-8):	Biblioteka plików strukturalnych dla GNOME
 Name:		libgsf
-Version:	1.14.53
-Release:	2
+Version:	1.14.54
+Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	https://download.gnome.org/sources/libgsf/1.14/%{name}-%{version}.tar.xz
-# Source0-md5:	baf36a3e89293652f67cded4b1608cc5
+# Source0-md5:	401a5669ba1e4ec02b79e440ad6a7e13
 URL:		https://gitlab.gnome.org/GNOME/libgsf
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
@@ -142,15 +142,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog README NEWS
 %attr(755,root,root) %{_bindir}/gsf
 %attr(755,root,root) %{_bindir}/gsf-vba-dump
-%attr(755,root,root) %{_libdir}/libgsf-1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgsf-1.so.114
+%{_libdir}/libgsf-1.so.*.*.*
+%ghost %{_libdir}/libgsf-1.so.114
 %{_libdir}/girepository-1.0/Gsf-1.typelib
 %{_mandir}/man1/gsf.1*
 %{_mandir}/man1/gsf-vba-dump.1*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgsf-1.so
+%{_libdir}/libgsf-1.so
 %dir %{_includedir}/libgsf-1
 %{_includedir}/libgsf-1/gsf
 %{_datadir}/gir-1.0/Gsf-1.gir
